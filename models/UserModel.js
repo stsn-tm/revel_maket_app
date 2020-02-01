@@ -1,28 +1,19 @@
 import GOBALS from '../GOBALS';
 
 export default class UserModel {
-
-
     constructor() {}
 
-
-
     async getLogin(username,password) {
-
-
-
         return fetch(GOBALS.URL + 'user/getLogin', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
-                {
+            body: JSON.stringify({
                 user_username: username,
                 user_password: password
-                }
-            )
+            })
         }).then((response) => {
             if (response.status >= 200 && response.status < 300) {
                 return response.json();
@@ -32,13 +23,7 @@ export default class UserModel {
         }).catch((error) => {
             return false;
         });
-
-
-
     }
-
-
-
 
     async getUserByUserCode(user_code) {
         return fetch(GOBALS.URL + 'user/getUserByUserCode', {
@@ -61,6 +46,19 @@ export default class UserModel {
         });
     }
 
-
-
+    async updateImageNameByUserCode(data) {
+        return fetch(GOBALS.URL + 'user/updateImageNameByUserCode', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                return responseJson;
+            }).catch((error) => {
+                console.error(error);
+            });
+    }
 }
